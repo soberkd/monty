@@ -1,6 +1,4 @@
-#define DEFINE_VARIABLES
 #include "monty.h"
-#include "extern.h"
 
 /**
   * _pall - prints all the values on the stack, starting
