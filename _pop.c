@@ -1,6 +1,4 @@
-#define DEFINE_VARIABLES
 #include "monty.h"
-#include "extern.h"
 /**
   * _pop - removes the top element of the stack.
   * @stack: monty stack.
