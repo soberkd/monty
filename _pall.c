@@ -7,11 +7,14 @@
   * @line_number: opcode index.
   */
 
-void _pall(stack_t **stack, __attribute__ ((unused))unsigned int line_number)
+void _pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *process;
+	(void)line_number;
 
 	process = *stack;
+	if (process = NULL)
+		return;
 	while (process != NULL)
 	{
 		printf("%d\n", process->n);
