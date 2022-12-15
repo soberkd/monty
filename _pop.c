@@ -7,10 +7,18 @@
 
 void _pop(stack_t **stack, unsigned int line_number)
 {
+	stack_t *h;
+
 	if (*stack == NULL)
 	{
-		printf("L%d: can't pop an empty stack\n", line_number);
-		error_exit(stack);
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
+		exit(EXIT_FAILURE);
 	}
-	delete_dnodeint_at_index(stack, 0);
+	h = *stack;
+	*stack = h->next;
+	free(h);
+}
 }
