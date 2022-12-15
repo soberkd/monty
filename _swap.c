@@ -10,14 +10,24 @@
 void _swap(stack_t **stack, unsigned int line_number)
 {
 	stack_t *process;
-	int tmp;
+	int tmp, length = 0;
 
 	process = *stack;
-	if (process == NULL || process->next == NULL)
+	while (process)
 	{
-		printf("L%d: can't swap, stack too short\n", line_number);
-		error_exit(stack);
+		process = process->next;
+		length++;
 	}
+
+	if (length < 2)
+	{
+		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*stack);
+		exit(EXIT_FAILURE);
+	}
+	process = *stack;
 	tmp = process->n;
 	process->n = process->next->n;
 	process->next->n = tmp;
