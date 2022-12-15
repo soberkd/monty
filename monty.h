@@ -39,11 +39,11 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+typedef void (*instruct_func)(stack_t **stack, unsigned int line_number);
 void file_reader(char *filename, stack_t **stack);
 instruct_func check_opcode(char *str);
 char *line_parser(char *line);
 void free_dlistint(stack_t *head);
-typedef void (*instruct_func)(stack_t **stack, unsigned int line_number);
 void _pall(stack_t **stack, unsigned int line_number);
 void _swap(stack_t **stack, unsigned int line_number);
 void _nop(stack_t **stack, unsigned int line_number);
