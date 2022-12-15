@@ -1,6 +1,14 @@
 #ifndef _MONTY_H_
 #define _MONTY_H_
 
+#define  _POSIX_C_SOURCE 200809L
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <ctype.h>
+
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -35,6 +43,19 @@ void file_reader(char *filename, stack_t **stack);
 instruct_func check_opcode(char *str);
 char *line_parser(char *line);
 void free_dlistint(stack_t *head);
+typedef void (*instruct_func)(stack_t **stack, unsigned int line_number);
+void _pall(stack_t **stack, unsigned int line_number);
+void _swap(stack_t **stack, unsigned int line_number);
+void _nop(stack_t **stack, unsigned int line_number);
+void _pint(stack_t **stack, unsigned int line_number);
+void _push(stack_t **stack, unsigned int line_number);
+void _pop(stack_t **stack, unsigned int line_number);
+void _add(stack_t **stack, unsigned int line_number);
+stack_t *add_dnodeint_end(stack_t **head, const int n);
+stack_t *add_dnodeint(stack_t **head, const int n);
+int delete_dnodeint_at_index(stack_t **head, unsigned int index);
+void error_exit(stack_t **stack);
+int _isdigit(char *str);
 
 
 #endif /* monty */
