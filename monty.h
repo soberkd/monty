@@ -40,10 +40,9 @@ typedef struct instruction_s
 } instruction_t;
 
 typedef void (*instruct_func)(stack_t **stack, unsigned int line_number);
-void file_reader(char *filename, stack_t **stack);
 instruct_func check_opcode(char *str);
 char *line_parser(char *line);
-void free_dlistint(stack_t *head);
+void file_reader(char *filename, stack_t **stack);
 void _pall(stack_t **stack, unsigned int line_number);
 void _swap(stack_t **stack, unsigned int line_number);
 void _nop(stack_t **stack, unsigned int line_number);
@@ -55,7 +54,8 @@ stack_t *add_dnodeint_end(stack_t **head, const int n);
 stack_t *add_dnodeint(stack_t **head, const int n);
 int delete_dnodeint_at_index(stack_t **head, unsigned int index);
 void error_exit(stack_t **stack);
+void free_dlistint(stack_t *head);
 int _isdigit(char *str);
 
 
-#endif /* monty */
+#endif
