@@ -1,6 +1,4 @@
-#define DEFINE_VARIABLES
 #include "monty.h"
-#include "extern.h"
 
 /**
   * _pint - prints the value at the top of the stack,
