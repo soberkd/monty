@@ -10,13 +10,13 @@
 
 void _pint(stack_t **stack, unsigned int line_number)
 {
-	stack_t *process;
-
-	process = *stack;
-	if (process == NULL)
+	if (*stack == NULL)
 	{
-		printf("L%d: can't pint, stack empty\n", line_number);
-		error_exit(stack);
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
+		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", process->n);
+	printf("%d\n", (*head)->n);
 }
