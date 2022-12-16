@@ -1,40 +1,36 @@
 #include "monty.h"
-
 /**
-  * add_dnodeint_end - adds a node at the end of the linked list.
-  * @head: pointer to the top node.
-  * @n: data to be inserted in the list.
-  *
-  * Return: pointer to the top.
-  */
-
-stack_t *add_dnodeint_end(stack_t **head, const int n)
+* add_dnodeint_end - function that add node to the tail the queue
+* @n: new value
+* @head: head of the queue
+*
+* Return: nothing
+*/
+void add_dnodeint_end(stack_t **head, const int n)
 {
-	stack_t *tmp = *head;
-	stack_t *tmp3;
+	stack_t *new_node, *temp;
 
-	tmp3 = (stack_t *)malloc(sizeof(stack_t));
-
-	if (tmp3 == NULL)
-		return (NULL);
-
-	tmp3->n = n;
-
-	if (*head == NULL)
+	temp = *head;
+	new_node = malloc(sizeof(stack_t));
+	if (new_node == NULL)
 	{
-		tmp3->next = NULL;
-		tmp3->prev = NULL;
-		*head = tmp3;
-		return (tmp3);
+		printf("Error\n");
 	}
-
-	while (tmp->next != NULL)
+	new_node->n = n;
+	new_node->next = NULL;
+	if (temp)
 	{
-		tmp = tmp->next;
+		while (temp->next)
+			temp = temp->next;
 	}
-
-	tmp->next = tmp3;
-	tmp3->prev = tmp;
-	tmp3->next = NULL;
-	return (tmp3);
+	if (!temp)
+	{
+		*head = new_node;
+		new_node->prev = NULL;
+	}
+	else
+	{
+		temp->next = new_node;
+		new_node->prev = temp;
+	}
 }
