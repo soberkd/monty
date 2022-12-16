@@ -1,49 +1,38 @@
-#define DEFINE_VARIABLES
 #include "monty.h"
-#include "extern.h"
 
 /**
-  * _push - push int to a stack
-  * @stack: the monty stack.
-  * @line_number: the index of the opcode.
+  * _push - function that adds node to the stack
+  * @stack: double stack pointer to the monty stack.
+  * @line_number: line count.
   */
 
 void _push(stack_t **stack, unsigned int line_number)
 {
-	stack_t *tmp;
-	char *arg;
-	int operand;
+	int i, m = 0, flag = 0;
 
-	operand = 0;
-
-	tmp = (stack_t *)malloc(sizeof(stack_t));
-
-	if (!tmp)
+	if (bus.arg)
 	{
-		printf("Error: malloc failed\n");
-		error_exit(stack);
-	}
-
-	arg = strtok(NULL, "\n ");
-
-	if (_isdigit(arg) == 1 && arg != NULL)
-	{
-		operand = atoi(arg);
-	}
+		if (bus.arg[0] == '-')
+			m++;
+		for (; bus.arg[m] != '\0'; m++)
+		{
+			if (bus.arg[m] > 57 || bus.arg[m] < 48)
+				flag = 1; }
+		if (flag == 1)
+		{ fprintf(stderr, "L%d: usage: push integer\n", line_number);
+			fclose(bus.file);
+			free(bus.content);
+			free_stack(*stack);
+			exit(EXIT_FAILURE); }}
 	else
-	{
-		printf("L%d: usage: push integer\n", line_number);
-		error_exit(stack);
-	}
-
-	if (global_var == 1)
-	{
-		add_dnodeint_end(stack, operand);
-	}
-
-	if (global_var == 0)
-	{
-		add_dnodeint(stack, operand);
-	}
-
+	{ fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*stack);
+		exit(EXIT_FAILURE); }
+	i = atoi(bus.arg);
+	if (bus.lifi == 0)
+		addnode(stack, i);
+	else
+		addqueue(stack, i);
 }
