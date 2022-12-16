@@ -28,11 +28,11 @@ void _push(stack_t **stack, unsigned int line_number)
 	{ fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		fclose(bus.file);
 		free(bus.content);
-		free_stack(*stack);
+		free_dlistint(*stack);
 		exit(EXIT_FAILURE); }
 	i = atoi(bus.arg);
 	if (bus.lifi == 0)
-		addnode(stack, i);
+		add_dnodeint(stack, i);
 	else
-		addqueue(stack, i);
+		add_node_end(stack, i);
 }
