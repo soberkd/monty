@@ -13,7 +13,7 @@ void _pall(stack_t **stack, unsigned int line_number)
 	(void)line_number;
 
 	process = *stack;
-	if (process = NULL)
+	if (process == NULL)
 		return;
 	while (process != NULL)
 	{
