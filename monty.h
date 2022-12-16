@@ -75,5 +75,9 @@ void free_dlistint(stack_t *head);
 int delete_dnodeint_at_index(stack_t **head, unsigned int index);
 void error_exit(stack_t **stack);
 int _isdigit(char *str);
+void _sub(stack_t **head, unsigned int counter);
+void _mul(stack_t **head, unsigned int counter);
+void _div(stack_t **head, unsigned int counter);
+void _mod(stack_t **head, unsigned int counter);
 
 #endif /* __MONTY__ */
