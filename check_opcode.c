@@ -1,15 +1,16 @@
 #include "monty.h"
 
 /**
- * check_op_code -  checks opcode and execute it.
- * @str: the opcode
- *
- * Return: function, NULL otherwise
- */
-instruct_func check_opcode(char *str)
+* execute - function that executes the opcode
+* @stack: head stack linked list
+* @counter: line count
+* @file: pointer to monty file stream
+* @content: line content
+*
+* Return: 0 or 1
+*/
+int execute(char *content, stack_t **stack, unsigned int counter, FILE *file)
 {
-	int i;
-
 	instruction_t instruct[] = {
 		{"push", _push},
 		{"pall", _pall},
@@ -19,12 +20,26 @@ instruct_func check_opcode(char *str)
 		{"nop", _nop},
 		{NULL, NULL},
 	};
+	unsigned int i = 0;
+	char *op;
 
-	i = 0;
-	while (instruct[i].f != NULL && strcmp(instruct[i].opcode, str) != 0)
+	op = strtok(content, " \n\t");
+	if (op && op[0] == '#')
+		return (0);
+	bus.arg = strtok(NULL, " \n\t");
+	while (instruct[i].opcode && op)
 	{
+		if (strcmp(op, instruct[i].opcode) == 0)
+		{	instruct[i].f(stack, counter);
+			return (0);
+		}
 		i++;
 	}
-
-	return (instruct[i].f);
+	if (op && instruct[i].opcode == NULL)
+	{ fprintf(stderr, "L%d: unknown instruction %s\n", counter, op);
+		fclose(file);
+		free(content);
+		free_dlistint(*stack);
+		exit(EXIT_FAILURE); }
+	return (1);
 }
