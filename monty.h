@@ -60,7 +60,7 @@ extern bus_t bus;
 
 typedef void (*instruct_func)(stack_t **stack, unsigned int line_number);
 char *line_parser(char *line);
-instruct_func check_opcode(char *str);
+int execute(char *content, stack_t **stack, unsigned int counter, FILE *file);
 void file_reader(char *filename, stack_t **stack);
 void _pall(stack_t **stack, unsigned int line_number);
 void _swap(stack_t **stack, unsigned int line_number);
