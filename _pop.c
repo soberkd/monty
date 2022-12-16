@@ -14,11 +14,10 @@ void _pop(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		fclose(bus.file);
 		free(bus.content);
-		free_stack(*head);
+		free_dlistint(*stack);
 		exit(EXIT_FAILURE);
 	}
 	h = *stack;
 	*stack = h->next;
 	free(h);
-}
 }
