@@ -1,26 +1,50 @@
 #include "monty.h"
-#include "extern.h"
+#define _GNU_SOURCE
+
+bus_t bus = {NULL, NULL, NULL, 0};
 
 /**
-  * main - executes the commandline arguments
-  * @ac: counts the opcode.
-  * @av: opcodes
-  *
-  * Return: 0
-  */
+ * main - executes the commandline arguments
+ * @ac: counts the opcode arguements
+ * @av: opcodes arguement values
+ *
+ * Return: 0 on success
+ */
 
 int main(int ac, char **av)
 {
-	stack_t *stack;
+	char *content;
+	FILE *file;
+	size_t size = 0;
+	ssize_t read_line = 1;
+	stack_t *stack = NULL;
+	unsigned int counter = 0;
 
-	stack = NULL;
 	if (ac != 2)
 	{
-		printf("USAGE: monty file\n");
-		error_exit(&stack);
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
 	}
-	file_reader(av[1], &stack);
+	file = fopen(av[1], "r");
+	bus.file = file;
+	if (!file)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", av[1]);
+		exit(EXIT_FAILURE);
+	}
+	while (read_line > 0)
+	{
+		content = NULL;
+		read_line = getline(&content, &size, file);
+		bus.content = content;
+		counter++;
+		if (read_line > 0)
+		{
+			execute(content, &stack, counter, file);
+		}
+		free(content);
+	}
 	free_dlistint(stack);
-
+	fclose(file);
 	return (0);
 }
